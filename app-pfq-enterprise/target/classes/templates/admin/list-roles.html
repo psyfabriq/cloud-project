@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/adm/header :: admhead}"></head>
+<body>
+
+	<div class="wrapper">
+
+		<div th:replace="~{fragments/adm/navbar :: admsidebar}"></div>
+		<div class="main-panel">
+			<div th:replace="~{fragments/adm/navbar :: admnavbar}"></div>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="header">
+									<div class="btn-toolbar pull-right">
+										<div class="btn-group">
+                                            	<a type="button" class="btn btn-info" th:href="@{/secure/roles/add}"><span class="glyphicon glyphicon-plus"></span></a>	
+											<button type="button" class="btn btn-danger">
+												<span class="glyphicon glyphicon-remove"></span>
+											</button>
+										</div>
+
+									</div>
+								</div>
+								<div class="content table-responsive table-full-width">
+									<table class="table table-striped" id=listtable>
+										<thead>
+											<tr>
+												<th><label class="box"><input type="checkbox"
+														id="checkall" /> <span class="checkmark"></span> </label></th>
+												<th>ID</th>
+												<th>Name</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<th:block th:each="role : ${listItems.content}">
+												<tr>
+													<td><label class="box"><input
+															type="checkbox" class="checkthis" /> <span
+															class="checkmark"></span></label></td>
+													<td th:text="${role.id}"></td>
+													<td th:text="${role.name}"></td>
+													<td>
+														<div class="btn-group" th:unless="${role.notdeleted} == false">
+															<button type="button" class="btn btn-default">
+																<span class="glyphicon glyphicon-pencil"></span>
+															</button>
+															<button type="button" class="btn btn-default"
+																data-toggle="modal" data-target="#modal-warning"
+																th:attr="data-target='#'+${role.id}">
+																<span class="glyphicon glyphicon-trash"></span>
+															</button>
+
+														</div>
+														<p th:unless="${role.notdeleted} == true" th:text="Protected"></p>
+													</td>
+												</tr>
+												
+												<div th:replace="~{fragments/adm/modal :: remove(@{Delete Role({name}) (name=${role.name})},@{Are you sure want to delete this role ?},@{/secure/role/{id}/delete (id=${role.id})},${role.id})}"></div>
+												
+											</th:block>
+										</tbody>
+									</table>
+									<div th:if="${listItems.totalPages > 0}" class="pagination"
+										th:each="pageNumber : ${pageNumbers}">
+										<a
+											th:href="@{/secure/users(size=${listItems.size}, page=${pageNumber})}"
+											th:text=${pageNumber}
+											th:class="${pageNumber==listItems.number + 1} ? active"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.main-panel -->
+		<div th:replace="~{fragments/adm/footer :: admfooter}"></div>
+
+	</div>
+	<!-- /.wrapper -->
+	<div th:replace="~{fragments/adm/js :: admjs}"></div>
+	<div th:replace="~{fragments/adm/js :: listjs}"></div>
+</body>
+</html>
