@@ -6,20 +6,27 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ru.podstavkov.dto.ArticleRequest;
 import ru.podstavkov.dto.CategoryRequest;
 import ru.podstavkov.dto.CategoryResponse;
 import ru.podstavkov.entity.Category;
 import ru.podstavkov.service.CategoryService;
 import ru.podstavkov.utils.annotation.ItemMenu;
+import ru.podstavkov.utils.annotation.LogBefore;
 import ru.podstavkov.utils.annotation.PageTitle;
 
 @Controller
@@ -61,7 +68,7 @@ public class CategoryController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')") //SpEL Type
     public String admAddCategory(Map<String, Object> model) {	
     	Category category = new Category();
-    	model.put("model", categoryService.convertEntityToDTORequest(category));
+    	model.put("model", categoryService.convertEntityToDTORequest(category).get());
     	return "admin/edit-category";
     }
     
@@ -72,7 +79,17 @@ public class CategoryController {
     public String admEditCategory(Map<String, Object> model,@PathVariable(value = "id") String id) {
     	if(!categoryService.existsByID(id)) {return "redirect: secure/categories";}
     	Category category = categoryService.getByID(id); 	
-    	model.put("model", categoryService.convertEntityToDTORequest(category));
+    	model.put("model", categoryService.convertEntityToDTORequest(category).get());
     	return "admin/edit-category";
     }
+     
+	
+	@PostMapping("/secure/category")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')") // SpEL Type
+	@LogBefore
+	public String admAction(HttpServletRequest request,@Valid  @ModelAttribute CategoryRequest obj) {
+		Category category = categoryService.convertDtoToEntityRequest(obj).get();
+		categoryService.edit(category);
+		return "redirect:/secure/categories";
+	}
 }

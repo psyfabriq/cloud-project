@@ -29,13 +29,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Article extends AbstractEntity  {
 
 	
-	@Column(name = "content")
+	@Column(name = "content",columnDefinition = "LONGTEXT")
 	private String content;
 	
-	@Column(name = "active")
+	@Column(name = "active",columnDefinition = "INT(1)")
 	private boolean active;
 
-	@Column(name="end_date")
+	@Column(name="end_date",columnDefinition = "DATETIME")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date endDate;
 	
@@ -68,9 +68,6 @@ public class Article extends AbstractEntity  {
 	}
 
 	
-
-
-
 	public String getContent() {
 		return content;
 	}

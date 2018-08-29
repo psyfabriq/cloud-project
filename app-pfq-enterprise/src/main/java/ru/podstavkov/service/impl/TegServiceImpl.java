@@ -1,5 +1,6 @@
 package ru.podstavkov.service.impl;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -90,11 +91,13 @@ public class TegServiceImpl implements TegService {
 
 	@Override
 	public Optional<Teg> convertDtoToEntityRequest(TegRequest dto) {
-		Teg teg = tegRepository.findById(dto.getId()).get();
+		Optional<Teg> tmp = tegRepository.findById(dto.getId());
+		Teg teg = tmp.isPresent()?tmp.get():new Teg();
 		teg.setDescription(dto.getDescription());
 		teg.setName(dto.getName());
 		teg.setMenuname(dto.getMenuname());
 		teg.setTeg(dto.getTeg());
+		teg.setUpdatedAt(Instant.now());
 		return Optional.ofNullable(teg );
 	}
 

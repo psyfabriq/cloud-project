@@ -1,19 +1,20 @@
 package ru.podstavkov.dto;
 
-import java.time.Instant;
+import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class AbstractRequest {
 	
+	@NotBlank(message = "{error.empty}")
 	protected String id="";
 
 	@Size(max = 128, min = 3, message = "{error.size}")
 	@NotBlank(message = "{error.empty}")
 	protected String name;
 	
-	protected Instant createdAt;
+	protected Date createdAt;
 
 	public String getId() {
 		return id;
@@ -31,11 +32,11 @@ public class AbstractRequest {
 		this.name = name;
 	}
 
-	public Instant getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Instant createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 	

@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import ru.podstavkov.dto.ArticleRequest;
 import ru.podstavkov.dto.ArticleResponse;
+import ru.podstavkov.dto.Item;
 import ru.podstavkov.entity.Article;
 import ru.podstavkov.entity.Category;
 import ru.podstavkov.entity.Teg;
@@ -107,17 +110,27 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public Optional<Article> convertDtoToEntityRequest(ArticleRequest dto) {
-		Article article = articleRepository.findById(dto.getId()).get();
-		article.setActive(dto.isActive());
+		Optional<Article> tmp = articleRepository.findById(dto.getId());
+		Article article = tmp.isPresent()?tmp.get():new Article();
+		article.setActive(dto.getActive());
 		article.setContent(dto.getContent());
 		article.setEndDate(dto.getEndDate());
 		article.setName(dto.getName());	
 		
-		List<String> categoriesIDs = new ArrayList<>(dto.getCategory().keySet());
+	//	List<String> categoriesIDs = new ArrayList<>(dto.getCategory().keySet());
+		
+		List<String> categoriesIDs = new ArrayList<>(dto.getCategories().entrySet().stream()
+														.filter(map -> map.getValue().getChose() == true)
+														.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)).keySet());
+		
 		List<Category> categories = categoryRepository.findByIdIn(categoriesIDs);
 		article.setCategory(categories);
 		
-		List<String> tegsIDs = new ArrayList<>(dto.getTegs().keySet());
+		//List<String> tegsIDs = new ArrayList<>(dto.getTegs().keySet());
+		List<String> tegsIDs = new ArrayList<>(dto.getTegs().entrySet().stream()
+													.filter(map -> map.getValue().getChose() == true)
+													.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)).keySet());
+		
 		List<Teg> tegs = tegRepository.findByIdIn(tegsIDs);
 		article.setTegs(tegs);
 		
@@ -133,19 +146,36 @@ public class ArticleServiceImpl implements ArticleService {
 		articleRequest.setId(entity.getId());
 		articleRequest.setEndDate(entity.getEndDate());
 		
-	    Map<String,String> category  = new LinkedHashMap<>();
-	    Map<String,String> tegs  = new LinkedHashMap<>();
+	  //  Map<String,Item> category  = new LinkedHashMap<>();
+	 //   Map<String,Item> tegs      = new LinkedHashMap<>();
+	    
+	    Map<String,Item> category = categoryRepository.findAll().stream().collect(Collectors.toMap(Category::getId, Category -> new Item(Category.getId(),Category.getName(),false)));
+	    Map<String,Item> tegs     = tegRepository.findAll().stream().collect(Collectors.toMap(Teg::getId, Teg -> new Item(Teg.getId(),Teg.getName(),false)));
+
+	    
 		
 		entity.getCategory().forEach((v)->{
-			category.put(v.getId(), v.getName());
+			if(category.containsKey(v.getId())) {
+				Item item = category.get(v.getId());
+				item.setChose(true);
+				category.put(v.getId(), item);
+  
+			}else {
+				category.put(v.getId(), new Item(v.getId(), v.getName(), true));
+			}
 		});
 		
-		entity.getTegs().forEach((v)->{
-			tegs.put(v.getId(), v.getName());
+		entity.getTegs().forEach((v) -> {
+			if (tegs.containsKey(v.getId())) {
+				Item item = tegs.get(v.getId());
+				item.setChose(true);
+				tegs.put(v.getId(), item);
+			} else {
+				tegs.put(v.getId(), new Item(v.getId(), v.getName(), true));
+			}
 		});
 		
-		
-		articleRequest.setCategory(category);
+		articleRequest.setCategories(category);
 		articleRequest.setTegs(tegs);
 		
 		return Optional.ofNullable(articleRequest);
@@ -160,6 +190,7 @@ public class ArticleServiceImpl implements ArticleService {
 		article.setName(dto.getName());
 		
 		List<String> categoriesIDs = new ArrayList<>(dto.getCategory().keySet());
+		
 		List<Category> categories = categoryRepository.findByIdIn(categoriesIDs);
 		article.setCategory(categories);
 		

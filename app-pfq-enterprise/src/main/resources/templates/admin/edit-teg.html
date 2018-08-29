@@ -8,6 +8,68 @@
 		<div th:replace="~{fragments/adm/navbar :: admsidebar}"></div>
 		<div class="main-panel">
 			<div th:replace="~{fragments/adm/navbar :: admnavbar}"></div>
+				<div class="content">
+				<form action="#" th:action="@{/secure/teg}" th:object="${model}" method="post">
+				    <input type="hidden" th:field="*{id}" name="quizID" />
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="card">
+									<div class="header">
+										<h4 class="title">Edit Teg</h4>
+									</div>
+									<div class="content">
+										<div class="row">
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Name</label> <input type="text"
+														class="form-control border-input" placeholder="Name"
+														th:field="*{name}" required="true">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="exampleInputEmail1">Default Menu name</label> <input
+														type="text" class="form-control border-input"
+														placeholder="Menu name" th:field="*{menuname}" required="true">
+												</div>
+											</div>
+
+										</div>
+										<div class="row">
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Hash Teg</label> <input type="text"
+														class="form-control border-input" placeholder="Teg"
+														th:field="*{teg}" required="true">
+												</div>
+											</div>
+
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Description</label>
+													<textarea rows="5" class="form-control border-input"
+														placeholder="Description"
+														th:field="*{description}"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="text-center">
+											<button type="submit" class="btn btn-info btn-fill btn-wd">Save</button>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 
 		<!-- /.main-panel -->

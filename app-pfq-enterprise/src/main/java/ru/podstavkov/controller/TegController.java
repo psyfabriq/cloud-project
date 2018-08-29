@@ -6,15 +6,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ru.podstavkov.dto.CategoryRequest;
+import ru.podstavkov.dto.TegRequest;
 import ru.podstavkov.dto.TegResponse;
 import ru.podstavkov.entity.Category;
 import ru.podstavkov.entity.Teg;
@@ -73,4 +80,12 @@ public class TegController {
     	model.put("model", tegService.convertEntityToDTORequest(teg));
     	return "admin/edit-teg";
     }
+    
+	@PostMapping("/secure/teg")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')") // SpEL Type
+	public String admAction(HttpServletRequest request,@Valid  @ModelAttribute TegRequest obj) {
+		Teg teg = tegService.convertDtoToEntityRequest(obj).get();
+		tegService.edit(teg);
+		return "redirect:/secure/tegs";
+	}
 }

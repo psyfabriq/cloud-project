@@ -2,6 +2,7 @@ package ru.podstavkov.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,7 +111,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Optional<CategoryRequest> convertEntityToDTORequest(Category entity) {
 		CategoryRequest categoryRequest = new CategoryRequest();
-		categoryRequest.setCreatedAt(entity.getCreatedAt());
+		categoryRequest.setCreatedAt(Date.from(entity.getCreatedAt()));
 		categoryRequest.setDescription(entity.getDescription());
 		categoryRequest.setId(entity.getId());
 		categoryRequest.setMenuname(entity.getMenuname());
@@ -138,7 +139,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Optional<CategoryResponse> convertEntityToDTOResponse(Category entity) {
 		CategoryResponse categoryResponse = new CategoryResponse();
-		categoryResponse.setCreatedAt(entity.getCreatedAt());
+		categoryResponse.setCreatedAt(Date.from(entity.getCreatedAt()));
 		categoryResponse.setDescription(entity.getDescription());
 		categoryResponse.setId(entity.getId());
 		categoryResponse.setMenuname(entity.getMenuname());

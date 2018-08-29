@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class CategoryRequest extends AbstractRequest{
 	
-	@Size(max = 256, min = 3, message = "{error.size}")
+	@Size(max = 1024, min = 3, message = "{error.size}")
 	@NotBlank(message = "{error.empty}")
 	private String description;
 

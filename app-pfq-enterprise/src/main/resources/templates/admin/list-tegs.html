@@ -17,9 +17,6 @@
 									<div class="btn-toolbar pull-right">
 										<div class="btn-group">
                                             	<a type="button" class="btn btn-info" th:href="@{/secure/tegs/add}"><span class="glyphicon glyphicon-plus"></span></a>	
-											<button type="button" class="btn btn-danger">
-												<span class="glyphicon glyphicon-remove"></span>
-											</button>
 										</div>
 
 									</div>
@@ -39,42 +36,36 @@
 											</tr>
 										</thead>
 										<tbody>
-											<th:block th:each="teg: ${listItems.content}">
+											<th:block th:each="list_item: ${listItems.content}">
 												<tr>
 													<td><label class="box"><input
 															type="checkbox" class="checkthis" /> <span
 															class="checkmark"></span></label></td>
-													<td th:text="${teg.id}"></td>
-													<td th:text="${teg.name}"></td>
-													<td th:text="${teg.menuname}"></td>
-													<td th:text="${teg.createdAt}"></td>
-													<td th:text="${teg.teg}"></td>
+													<td th:text="${list_item.id}"></td>
+													<td th:text="${list_item.name}"></td>
+													<td th:text="${list_item.menuname}"></td>
+													<td th:text="${list_item.createdAt}"></td>
+													<td th:text="${list_item.teg}"></td>
 	
 													<td>
 														<div class="btn-group">
-															<button type="button" class="btn btn-default">
-																<a href="" th:href="@{/secure/teg/{id} (id=${teg.id})}"><span class="glyphicon glyphicon-pencil"></span></a>
-															</button>
-															<button type="button" class="btn btn-default"
+															<a type="button" class="btn btn-default"
+																th:href="@{/secure/teg/{id} (id=${list_item.id})}"><span
+																class="glyphicon glyphicon-pencil"></span></a> <a
+																type="button" class="btn btn-default"
 																data-toggle="modal" data-target="#modal-warning"
-																th:attr="data-target='#'+${teg.id}">
-																<span class="glyphicon glyphicon-trash"></span>
-															</button>
+																th:attr="data-target='#'+${list_item.id}"> <span
+																class="glyphicon glyphicon-trash"></span>
+															</a>
 														</div>
-											
+
 													</td>
 												</tr>
-												<div th:replace="~{fragments/adm/modal :: remove(@{Delete Teg({name}) (name=${teg.name})},@{Are you sure want to delete this teg ?},@{/secure/teg/{id}/delete (id=${teg.id})},${teg.id})}"></div>
+												<div th:replace="~{fragments/adm/modal :: remove(@{Delete Teg({name}) (name=${list_item.name})},@{Are you sure want to delete this teg ?},@{/secure/teg/{id}/delete (id=${list_item.id})},${list_item.id})}"></div>
 											</th:block>
 										</tbody>
 									</table>
-									<div th:if="${listItems.totalPages > 0}" class="pagination"
-										th:each="pageNumber : ${pageNumbers}">
-										<a
-											th:href="@{/secure/tegs(size=${listItems.size}, page=${pageNumber})}"
-											th:text=${pageNumber}
-											th:class="${pageNumber==listItems.number + 1} ? active"></a>
-									</div>
+									<div th:replace="~{fragments/pagination :: site('/secure/tegs')}"></div>
 
 								</div>
 							</div>

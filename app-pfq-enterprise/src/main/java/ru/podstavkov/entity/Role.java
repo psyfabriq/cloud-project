@@ -14,10 +14,10 @@ public class Role {
 
 //	@Enumerated(EnumType.STRING)
 	@NaturalId
-	@Column(length = 60)
+	@Column(name="name",columnDefinition = "VARCHAR(60)")
 	private String name;
 	
-    @Type(type = "org.hibernate.type.TrueFalseType")
+	@Column(name = "notdeleted",columnDefinition = "INT(1)")
 	boolean notdeleted;
 
 	public Role() {

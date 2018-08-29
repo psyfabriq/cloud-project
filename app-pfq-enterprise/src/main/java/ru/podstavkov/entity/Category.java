@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -20,8 +21,10 @@ public class Category extends AbstractEntity {
 			@JoinColumn(name = "article_id") })
 	private List<Article> article;
 
+	@Column(name = "description",columnDefinition = "TEXT")
 	private String description;
 
+	@Column(name = "menuname",columnDefinition = "VARCHAR(40)")
 	private String menuname;
 
 	public Category() {

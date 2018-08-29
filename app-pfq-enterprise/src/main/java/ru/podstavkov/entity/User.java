@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,24 +32,34 @@ public class User extends DateAudit implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "code",columnDefinition = "VARCHAR(60)",unique=true,nullable=false)
 	private String code;
 	
+	@Column(name = "name",columnDefinition = "VARCHAR(40)",unique=true,nullable=false)
 	private String name;
 
+	@Column(name = "secondname",columnDefinition = "VARCHAR(40)")
 	private String secondname;
 
+	@Column(name = "lastname",columnDefinition = "VARCHAR(40)")
 	private String lastname;
-
+    
+	@Column(name = "city",columnDefinition = "VARCHAR(40)")
 	private String city;
 
+	@Column(name = "country",columnDefinition = "VARCHAR(40)")
 	private String country;
 	
+	@Column(name = "aboutme",columnDefinition = "TEXT")
 	private String aboutme;
 
+	@Column(name = "username",columnDefinition = "VARCHAR(40)",unique=true,nullable=false)
 	private String username;
 
+	@Column(name = "email",columnDefinition = "VARCHAR(60)",unique=true,nullable=false)
 	private String email;
 
+	@Column(name = "password",columnDefinition = "VARCHAR(60)",nullable=false)
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)

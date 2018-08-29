@@ -22,7 +22,7 @@ public abstract class AbstractEntity extends UserDateAudit implements Serializab
 	@Id
 	protected String id;
 
-	@Column(name = "name")
+	@Column(name = "name",columnDefinition="VARCHAR(128)",unique=true,nullable=false)
 	@Size(max = 128, min = 3, message = "{error.size}")
 	@NotBlank(message = "{error.empty}")
 	protected String name;

@@ -17,9 +17,6 @@
 									<div class="btn-toolbar pull-right">
 										<div class="btn-group">
                                             	<a type="button" class="btn btn-info" th:href="@{/secure/roles/add}"><span class="glyphicon glyphicon-plus"></span></a>	
-											<button type="button" class="btn btn-danger">
-												<span class="glyphicon glyphicon-remove"></span>
-											</button>
 										</div>
 
 									</div>
@@ -36,41 +33,35 @@
 											</tr>
 										</thead>
 										<tbody>
-											<th:block th:each="role : ${listItems.content}">
+											<th:block th:each="list_item : ${listItems.content}">
 												<tr>
 													<td><label class="box"><input
 															type="checkbox" class="checkthis" /> <span
 															class="checkmark"></span></label></td>
-													<td th:text="${role.id}"></td>
-													<td th:text="${role.name}"></td>
+													<td th:text="${list_item.id}"></td>
+													<td th:text="${list_item.name}"></td>
 													<td>
-														<div class="btn-group" th:unless="${role.notdeleted} == false">
-															<button type="button" class="btn btn-default">
+														<div class="btn-group" th:unless="${list_item.notdeleted} == false">
+															<a type="button" class="btn btn-default">
 																<span class="glyphicon glyphicon-pencil"></span>
-															</button>
-															<button type="button" class="btn btn-default"
+															</a>
+															<a type="button" class="btn btn-default"
 																data-toggle="modal" data-target="#modal-warning"
-																th:attr="data-target='#'+${role.id}">
+																th:attr="data-target='#'+${list_item.id}">
 																<span class="glyphicon glyphicon-trash"></span>
-															</button>
+															</a>
 
 														</div>
-														<p th:unless="${role.notdeleted} == true" th:text="Protected"></p>
+														<p th:unless="${list_item.notdeleted} == true" th:text="Protected"></p>
 													</td>
 												</tr>
 												
-												<div th:replace="~{fragments/adm/modal :: remove(@{Delete Role({name}) (name=${role.name})},@{Are you sure want to delete this role ?},@{/secure/role/{id}/delete (id=${role.id})},${role.id})}"></div>
+												<div th:replace="~{fragments/adm/modal :: remove(@{Delete Role({name}) (name=${list_item.name})},@{Are you sure want to delete this role ?},@{/secure/role/{id}/delete (id=${list_item.id})},${list_item.id})}"></div>
 												
 											</th:block>
 										</tbody>
 									</table>
-									<div th:if="${listItems.totalPages > 0}" class="pagination"
-										th:each="pageNumber : ${pageNumbers}">
-										<a
-											th:href="@{/secure/users(size=${listItems.size}, page=${pageNumber})}"
-											th:text=${pageNumber}
-											th:class="${pageNumber==listItems.number + 1} ? active"></a>
-									</div>
+									<div th:replace="~{fragments/pagination :: site('/secure/roles')}"></div>
 								</div>
 							</div>
 						</div>

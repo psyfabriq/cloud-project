@@ -4,20 +4,32 @@
 	<th:block th:fragment="admjs">
 	    
 		<script type="text/javascript"  th:src="@{/webjars/bootstrap/3.3.0/js/bootstrap.min.js}" ></script>
-		<script type="text/javascript"  th:src="@{/js/bootstrap-checkbox-radio.js}"></script>
 		<script type="text/javascript"  th:src="@{/js/chartist.min.js}"></script>
 		<script type="text/javascript"  th:src="@{/js/bootstrap-notify.js}"></script>
 		<script type="text/javascript"  th:src="@{/js/paper-dashboard.js}"></script>
-		<script type="text/javascript"  th:src="@{/js/countdowntime/moment.min.js}"></script>
+		<script type="text/javascript"  th:src="@{/js/moment.min.js}"></script>
 		<script type="text/javascript"  th:src="@{/js/countdowntime/moment-timezone.min.js}"></script>
 		<script type="text/javascript"  th:src="@{/js/countdowntime/moment-timezone-with-data.min.js}"></script>
 		<script type="text/javascript"  th:src="@{/js/countdowntime/countdowntime.js}"></script>
-		<script type="text/javascript"  th:src="@{/js/demo.js}"></script>
+		<script type="text/javascript"  th:src="@{/js/bootstrap-table.js}"></script>
+		<script type="text/javascript"  th:src="@{/js/bootstrap-datetimepicker.js}"></script>
+		<script type="text/javascript"  th:src="@{/js/locales.js}"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+
+
+		<script>
+         ClassicEditor
+             .create( document.querySelector( '#editor' ) )
+             .catch( error => {
+                      console.error( error );
+               });
+        </script>
+
 
 	</th:block>
 	
 	<th:block th:fragment="listjs">
-		<script th:inline="javascript">
+		<script type="text/javascript" th:inline="javascript">
 			$(document).ready(function() {
 				$("#listtable #checkall").click(function() {
 					if ($("#listtable #checkall").is(':checked')) {
@@ -37,8 +49,33 @@
 		</script>
 	</th:block>
 	
-	<th:block th:fragment="underconstraction">
+	<th:block th:fragment="datepiker">
+		<script type="text/javascript" th:inline="javascript">
+			$(function() {
+				$('.date').datetimepicker({
+                    locale: 'ru'
+                });
+			});
+		</script>
+	</th:block>
+	
+	<th:block th:fragment="pagination">
 		<script th:inline="javascript">
+			$(function() {
+				$('.noinfopagination').bootstrapTable({
+					formatRecordsPerPage : function() {
+						return ''
+					},
+					formatShowingRows : function() {
+						return ''
+					}
+				})
+			})
+		</script>
+	</th:block>
+	
+	<th:block th:fragment="underconstraction">
+		<script type="text/javascript" th:inline="javascript">
 			$('.cd100').countdown100({
 				/*Set Endtime here*/
 				/*Endtime must be > current time*/
@@ -49,8 +86,6 @@
 				endtimeMinutes : 0,
 				endtimeSeconds : 0,
 				timeZone : ""
-			// ex:  timeZone: "America/New_York"
-			//go to " http://momentjs.com/timezone/ " to get timezone
 			});
 		</script>
 	</th:block>
