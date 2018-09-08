@@ -7,22 +7,27 @@ APPFOLDER="app-eureka"
 AFTERSTART="app-pfq-config.service" #networking.service
 USER='webapp'
 GROUP='spring'
+DISTRO=$(lsb_release -i | cut -f 2-)
 COMMAND=""
-
 
 echo "###################################PREPAIR ALL PAKAGES############################################"
 
-if [-f /etc/redhat-release  ]
-	then
-		echo "CentOs";
-		COMMAND="yum install -y ";
-elif [ -f /etc/lsb-release ]
-	then
-		echo "Ubuntu (Debian)";
-		COMMAND="apt-get install -y "
+if [[  ${DISTRO} == "CentOS" ]]
+then
+    echo "CentOS";
+    	COMMAND="yum install -y "
+elif [[  ${DISTRO} == "Ubuntu" ]]
+then
+    echo "Ubuntu";
+         COMMAND="apt-get install -y "
+elif [[  ${DISTRO} == "Debian" ]]
+then
+    echo "Debian";
+         COMMAND="apt-get install -y "        
 else
-		echo "Unsupported Operating System";
-		exit 1;
+    echo "Unsupported Operating System";
+    echo "${DISTRO}"
+    exit 1;
 fi
 
 if ! which mvn > /dev/null; then
@@ -71,11 +76,8 @@ fi
 
 if [ -d "${ROOTFOLDER}${APPFOLDER}" ] 
 then
-    echo "Directory ${ROOTFOLDER}${APPFOLDER} exists."
-    rm -rf  ${ROOTFOLDER}${APPFOLDER}
-    rm -rf /etc/systemd/system/$APPNAME.service
-    systemct disable $APPNAME
-   # exit 1
+    echo "Directory ${ROOTFOLDER}${APPFOLDER} exists." 
+    exit 1
 else
     mvn install 
     
