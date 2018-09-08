@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.podstavkov.dto.TegRequest;
 import ru.podstavkov.dto.TegResponse;
@@ -26,36 +27,43 @@ public class TegServiceImpl implements TegService {
 	TegRepository tegRepository;
 	
 	@Override
+	@Transactional
 	public Teg add(Teg teg) {
 		return tegRepository.saveAndFlush(teg);
 	}
 
 	@Override
+	@Transactional
 	public void delete(String id) {
 		tegRepository.deleteById(id);		
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Teg getByName(String name) {
 		return tegRepository.findByName(name).get();
 	}
 
 	@Override
+	@Transactional
 	public Teg edit(Teg teg) {
 		return tegRepository.saveAndFlush(teg);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Teg> getAll() {
 		return tegRepository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByName(String name) {
 		return tegRepository.existsByName(name);
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Page<TegResponse> findPaginated(Pageable pageable) {
 		
 		    int pageSize = pageable.getPageSize();
@@ -80,11 +88,13 @@ public class TegServiceImpl implements TegService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByID(String id) {
 		return tegRepository.existsById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Teg getByID(String id) {
 		return tegRepository.getOne(id);
 	}

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.podstavkov.dto.CategoryRequest;
 import ru.podstavkov.dto.CategoryResponse;
@@ -26,36 +27,43 @@ public class CategoryServiceImpl implements CategoryService {
 	CategoryRepository categoryRepository;
 
 	@Override
+    @Transactional
 	public Category add(Category category) {
 		return categoryRepository.saveAndFlush(category);
 	}
 
 	@Override
+    @Transactional
 	public void delete(String id) {
 		categoryRepository.deleteById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Category getByName(String name) {
 		return categoryRepository.findByName(name).get();
 	}
 
 	@Override
+    @Transactional
 	public Category edit(Category category) {
 		return categoryRepository.saveAndFlush(category);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Category> getAll() {
 		return categoryRepository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByName(String name) {
 		return categoryRepository.existsByName(name);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<CategoryResponse> findPaginated(Pageable pageable) {
 
 		int pageSize = pageable.getPageSize();
@@ -81,11 +89,13 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByID(String id) {
 		return categoryRepository.existsById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Category getByID(String id) {
 		return categoryRepository.getOne(id);
 	}

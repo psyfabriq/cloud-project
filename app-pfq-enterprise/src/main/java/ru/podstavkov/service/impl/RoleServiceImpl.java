@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.podstavkov.entity.Category;
 import ru.podstavkov.entity.Role;
@@ -23,36 +24,43 @@ public class RoleServiceImpl implements RoleService {
 	private RoleRepository roleRepository;
 
 	@Override
+    @Transactional
 	public Role addRole(Role role) {
 		Role savedRole = roleRepository.saveAndFlush(role);
 		return savedRole;
 	}
 
 	@Override
+    @Transactional
 	public void delete(long id) {
 		roleRepository.deleteById(id);
 	}
 
 	@Override
+    @Transactional
 	public Role editRole(Role role) {
 		return roleRepository.saveAndFlush(role);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Role> getAll() {
 		 return roleRepository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByName(String name) {
 		return roleRepository.existsByName(name);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Role getByName(String name) {
 		return roleRepository.findByName(name).get();
 	}
 	
+    @Transactional
 	public Role createRoleIfNotFound(String roleName) {
 
         Optional<Role> optionalRole = roleRepository.findByName(roleName);
@@ -71,6 +79,7 @@ public class RoleServiceImpl implements RoleService {
     }
     
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Role> findPaginated(Pageable pageable) {
 		
 		    int pageSize = pageable.getPageSize();
@@ -92,6 +101,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByID(long id) {
 		return roleRepository.existsById(id);
 	}

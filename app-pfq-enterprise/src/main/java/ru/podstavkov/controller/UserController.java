@@ -38,6 +38,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	public UserController(UserService mocUserService) {
+		userService = userService;
+	}
+
 	@GetMapping("/secure/users")
 	@ItemMenu(uri = "/secure/users", menuname = "admsidebar")
 	@PageTitle(code = "adm.link.s.user")

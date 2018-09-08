@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.podstavkov.dto.UserProfile;
 import ru.podstavkov.dto.UserRequest;
@@ -30,60 +31,70 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 	  
 	@Override
+	@Transactional
 	public User addUser(User userresult) {
 		return userRepository.saveAndFlush(userresult);
 	}
 
 	@Override
+	@Transactional
 	public void delete(long id) {
 		userRepository.deleteById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public User getByName(String name) {
 		return userRepository.findByUsername(name).get();
 	}
 	
 	@Override
 	@LogBefore
+	@Transactional
 	public User editUser(User userresult) {
 		return userRepository.saveAndFlush(userresult);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<User> getAll() {
 		  return userRepository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public User getByNameOrEmail(String name, String email) {
 		return userRepository.findByUsernameOrEmail(name,email).get();
 	}
 
 	@Override
-	
+	@Transactional(readOnly = true)
 	public User getByEmail(String email) {
 		
 		return userRepository.findByEmail(email).get();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByUsername(String username) {
 		return userRepository.existsByUsername(username);
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByCode(String code) {
 		return userRepository.existsByCode(code);
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public User getByCode(String code) {
 		return userRepository.findByCode(code).get();
 	}
 
 
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean existsByEmail(String email) {
 		return userRepository.existsByEmail(email);
 	}
