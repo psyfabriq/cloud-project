@@ -6,10 +6,10 @@ LABEL MAINTAINER="psyfabriqdev@gmail.com"
 VOLUME /tmp
 
 # The application's jar file
-ARG JAR_FILE=target/app-server-api-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/app-pfq-api-0.0.1-SNAPSHOT.jar
 ARG PORT=8091
 ENV PORT=${PORT}
-ENV DEFAULT_ZONE=http://172.17.0.3:8761/eureka/
+ENV DEFAULT_ZONE=http://172.17.0.3:8761/eureka
 # Make port 8080 available to the world outside this container
 EXPOSE ${PORT}
 # Add the application's jar to the container
