@@ -10,8 +10,7 @@ ARG JAR_FILE=target/app-pfq-eureka-0.0.1-SNAPSHOT.jar
 ARG PORT=8761
 ENV APP_NAME=app-pfq-eureka
 ENV PORT=${PORT}
-ENV HOST_NAME=localhost
-ENV CONFIG_URI=http://172.17.0.2:8888
+ENV CONFIG_URI=http://app-config.pfq:8888
 ENV REG_WITH_EUREKA=false
 ENV FETCH_REGISTRY=false 
 # Make port 8080 available to the world outside this container
