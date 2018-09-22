@@ -6,14 +6,19 @@ info:
     email: psyfabriqdev@gmail.com
 spring:
   application:
-    name: ${APP_NAME:app-pfq-config}    
+    name: ${APP_NAME:app-pfq-config}
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/shared
-  profiles:
-     active: native
+        git:
+          uri: https://github.com/psyfabriq/cloud-project.git 
+ # cloud:
+ #   config:
+ #     server:
+ #       native:
+ #         search-locations: classpath:/shared
+ # profiles:
+ #    active: native
   security:
     user:
       password: ${CONFIG_SERVICE_PASSWORD:test}

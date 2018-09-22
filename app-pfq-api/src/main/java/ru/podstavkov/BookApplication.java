@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BookApplication {
 
-  @RequestMapping(value = "/available")
+  @RequestMapping(value = "/")
   public String available() {
     return "Spring in Action";
   }
