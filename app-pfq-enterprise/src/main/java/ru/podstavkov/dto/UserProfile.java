@@ -2,10 +2,8 @@ package ru.podstavkov.dto;
 
 import java.time.Instant;
 
-import lombok.Data;
 import ru.podstavkov.entity.User;
 
-@Data 
 public class UserProfile {
 	    private Long id;
 	    private String username;

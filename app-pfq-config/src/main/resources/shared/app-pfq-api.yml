@@ -1,0 +1,35 @@
+info:
+  app:
+    name: App API ${NUMBER_REPLICA:1}
+  developer:
+    name: Ilia Podstavkov
+    email: psyfabriqdev@gmail.com
+server:
+  port: ${PORT:8091}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' 
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: ${DEFAULT_ZONE:http://localhost:8761/eureka/}
+      
+datasource:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://${DATABASE_URI:localhost}:${DATABASE_PORT:3306}/${DATABASE_SHEMA:appdb}?useSSL=false&useUnicode=true
+  schema: ${DATABASE_SHEMA:appdb}
+  username: ${DATABASE_USER:appuser}
+  password: ${DATABASE_PASS:apppassword}
+hibernate:
+  hb2ddl:
+    auto: update
+  jdbc:
+    batch_size: '10'
+    fetch_size: '50'
+  max_fetch_depth: '3'
+  show_sql: 'false'

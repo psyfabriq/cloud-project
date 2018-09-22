@@ -4,15 +4,18 @@ FROM java:8-jre
 LABEL MAINTAINER="psyfabriqdev@gmail.com"
 # Add a volume pointing to /tmp
 VOLUME /tmp
+
 # The application's jar file
-ARG JAR_FILE=target/app-pfq-eureka-0.0.1-SNAPSHOT.jar
-ARG PORT=8761
-ENV APP_NAME=app-pfq-eureka
+ARG JAR_FILE=target/app-pfq-security-0.0.1-SNAPSHOT.jar
+ARG PORT=5000
 ENV PORT=${PORT}
-ENV HOST_NAME=localhost
 ENV CONFIG_URI=http://app-config:8888
-ENV REG_WITH_EUREKA=false
-ENV FETCH_REGISTRY=false 
+ENV DATABASE_URI=database-user
+ENV DATABASE_PORT=3306
+ENV DATABASE_SHEMA=appdb
+ENV DATABASE_USER=appuser
+ENV DATABASE_PASS=apppassword
+ENV DEFAULT_ZONE=http://app-registry:8761/eureka
 # Make port 8080 available to the world outside this container
 EXPOSE ${PORT}
 # Add the application's jar to the container

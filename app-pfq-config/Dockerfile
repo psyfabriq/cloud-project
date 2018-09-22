@@ -1,14 +1,19 @@
-# Start with a base image containing Java runtime
-FROM openjdk:8-jdk-alpine
-# Add Maintainer Info
-LABEL MAINTAINER="psyfabriqdev@gmail.com"
-# Add a volume pointing to /tmp
+FROM java:8-jre
+
+MAINTAINER Ilia Podstavkov <psyfabriqdev@gmail.com>
+
 VOLUME /tmp
-# Make port 8080 available to the world outside this container
-EXPOSE 8888
-# The application's jar file
+
+ENV GIT_URI=https://github.com/psyfabriq/cloud-project.git
+
 ARG JAR_FILE=target/app-pfq-config-0.0.1-SNAPSHOT.jar
-# Add the application's jar to the container
-ADD ${JAR_FILE} app-pfq-config.jar
-# Run the jar file 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app-pfq-config.jar"]
+
+ADD ${JAR_FILE} pfq-service.jar
+
+ADD ./target/app-pfq-config-0.0.1-SNAPSHOT.jar /app/
+
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/pfq-service.jar"]
+
+HEALTHCHECK --interval=30s --timeout=30s CMD curl -f http://localhost:8888/actuator/health || exit 1
+
+EXPOSE 8888

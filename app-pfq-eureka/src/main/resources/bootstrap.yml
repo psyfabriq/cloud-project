@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: ${APP_NAME:app-pfq-eureka}
+  cloud:
+    config:
+      uri: ${CONFIG_URI:http://localhost:8888}
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD:test}
+      username: user
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+      waitTimeInMsWhenSyncEmpty: 0
