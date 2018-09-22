@@ -31,9 +31,9 @@ zuul:
       serviceId: APP-PFQ-SECURITY
       stripPrefix: false
       sensitiveHeaders:
-    app-pfq-api:
+    api:
       path: /api/**
-      serviceId: app-pfq-api
+      serviceId: APP-PFQ-API
       stripPrefix: false
       sensitiveHeaders:
 eureka:
