@@ -10,7 +10,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 20000
+            timeoutInMilliseconds: 30000
 
 ribbon: 
   ConnectTimeout: 30000
@@ -23,8 +23,8 @@ ribbon:
 zuul:
   ignoredServices: '*'
   host:
-    connect-timeout-millis: 20000
-    socket-timeout-millis: 20000
+    connect-timeout-millis: 30000
+    socket-timeout-millis: 30000
   routes:
     uaa:
       path: /uaa/**
