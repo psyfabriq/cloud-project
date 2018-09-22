@@ -34,7 +34,7 @@ zuul:
     api:
       path: /api/**
       serviceId: APP-PFQ-API
-      stripPrefix: false
+      stripPrefix: true
       sensitiveHeaders:
 eureka:
   instance:
