@@ -28,7 +28,7 @@ zuul:
   routes:
     uaa:
       path: /uaa/**
-      serviceId: APP-PFQ-SECURITY
+      serviceId: APP-PFQ-AUTH
       stripPrefix: false
       sensitiveHeaders:
     api:
