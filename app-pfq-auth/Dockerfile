@@ -6,7 +6,7 @@ LABEL MAINTAINER="psyfabriqdev@gmail.com"
 VOLUME /tmp
 
 # The application's jar file
-ARG JAR_FILE=target/app-pfq-security-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/app-pfq-auth-0.0.1-SNAPSHOT.jar
 ARG PORT=5000
 ENV PORT=${PORT}
 ENV CONFIG_URI=http://app-config:8888

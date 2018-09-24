@@ -12,6 +12,10 @@ spring:
       server:
         git:
           uri: https://github.com/psyfabriq/cloud-project.git 
+  output:
+    ansi:
+      enabled: always
+          
  # cloud:
  #   config:
  #     server:

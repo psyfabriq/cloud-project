@@ -51,7 +51,7 @@ services:
         max-size: 10m
         max-file: '10'
   app-auth-service:
-    build: app-pfq-security
+    build: app-pfq-auth
     restart: always
     depends_on:
       app-config:
@@ -92,5 +92,4 @@ services:
     logging:
       options:
         max-size: 10m
-        max-file: '10' 
-  
+        max-file: '10'

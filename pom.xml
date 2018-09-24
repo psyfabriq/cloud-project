@@ -108,4 +108,14 @@
 		</plugins>
 	</build>
 
+	<modules>
+		<module>app-pfq-config</module>
+		<module>app-pfq-eureka</module>
+		<module>app-pfq-gateway</module>
+		<module>app-pfq-auth</module>
+		<module>app-pfq-api</module>
+		<module>app-pfq-enterprise</module>
+		<module>app-pfq-rss</module>
+		<module>app-pfq-notification</module>
+	</modules>
 </project>
