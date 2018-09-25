@@ -12,3 +12,8 @@ hibernate:
     fetch_size: '50'
   max_fetch_depth: '3'
   show_sql: 'false'
+
+spring:
+  h2:
+    console:
+      enabled: true

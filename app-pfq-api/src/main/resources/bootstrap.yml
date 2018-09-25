@@ -9,4 +9,7 @@ spring:
       username: user
   security:
      user:
-      password: ${CONFIG_SERVICE_PASSWORD:test}  
+      password: ${CONFIG_SERVICE_PASSWORD:test}
+  output:
+    ansi:
+      enabled: always
