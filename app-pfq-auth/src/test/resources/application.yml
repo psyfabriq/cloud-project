@@ -1,0 +1,14 @@
+datasource:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/testapp_schema?useSSL=false&useUnicode=true
+  schema: testapp_schema
+  username: testuser
+  password: testpass
+hibernate:
+  hb2ddl:
+    auto: update
+  jdbc:
+    batch_size: '10'
+    fetch_size: '50'
+  max_fetch_depth: '3'
+  show_sql: 'false'
