@@ -104,25 +104,21 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.2.11</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-core</artifactId>
 			<version>2.2.11</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.2.11</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -139,11 +135,10 @@
 		<module>app-pfq-config</module>
 		<module>app-pfq-eureka</module>
 		<module>app-pfq-gateway</module>
-		<module>app-pfq-auth</module>
-		<module>app-pfq-account</module>
 		<module>app-pfq-api</module>
 		<module>app-pfq-enterprise</module>
 		<module>app-pfq-rss</module>
 		<module>app-pfq-notification</module>
+		<module>app-pfq-auth</module>
 	</modules>
 </project>

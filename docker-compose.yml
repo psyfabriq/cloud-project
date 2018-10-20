@@ -50,45 +50,6 @@ services:
       options:
         max-size: 10m
         max-file: '10'
-  app-auth-service:
-    build: app-pfq-auth
-    restart: always
-    depends_on:
-      app-config:
-        condition: service_healthy
-    environment:
-      - 'CONFIG_URI=http://app-config:8888'
-      - DATABASE_URI=database-user
-      - DATABASE_PORT=3306
-      - DATABASE_SHEMA=user_sheme
-      - DATABASE_USER=dbuser
-      - DATABASE_PASS=userpass
-    links:
-      - database-user
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'
-  app-account-service:
-    build: app-pfq-account
-    restart: always
-    depends_on:
-      app-config:
-        condition: service_healthy
-    environment:
-      - 'CONFIG_URI=http://app-config:8888'
-      - DATABASE_URI=database-user
-      - DATABASE_PORT=3306
-      - DATABASE_SHEMA=user_sheme
-      - DATABASE_USER=dbuser
-      - DATABASE_PASS=userpass
-      - ACCOUNT_SERVICE_PASSWORD=acounttest
-    links:
-      - database-user
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'
   app-gateway:
     build: app-pfq-gateway
     restart: always

@@ -7,22 +7,24 @@ info:
 spring:
   application:
     name: ${APP_NAME:app-pfq-config}
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/psyfabriq/cloud-project.git 
-  output:
-    ansi:
-      enabled: always
-          
+
  # cloud:
  #   config:
  #     server:
- #       native:
- #         search-locations: classpath:/shared
- # profiles:
- #    active: native
+ #       git:
+ #         uri: https://github.com/psyfabriq/cloud-project.git
+
+  output:
+    ansi:
+      enabled: always
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+    active: native
   security:
     user:
       password: ${CONFIG_SERVICE_PASSWORD:test}
