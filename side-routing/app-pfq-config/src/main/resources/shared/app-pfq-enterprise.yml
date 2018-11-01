@@ -1,0 +1,26 @@
+info:
+  app:
+    name: Spring Enterprise Application (Happy News)
+    version: 1.0.0
+  developer:
+    email: psyfabriqdev@gmail.com
+    name: Ilia Podstavkov
+app:
+  jwtExpirationInMs: '645432235'
+  jwtSecret: 23423552463215E42345ERWF452REDF3W5YGFGFDG5
+datasource:
+  driver: com.mysql.jdbc.Driver
+  password: rootpassword
+  schema: appdb
+  url: jdbc:mysql://127.0.0.1:3306/appdb?useSSL=false&useUnicode=true
+  username: root
+hibernate:
+  hb2ddl:
+    auto: update
+  jdbc:
+    batch_size: '10'
+    fetch_size: '50'
+  max_fetch_depth: '3'
+  show_sql: 'false'
+server:
+  port: '8282'
