@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AppEureka" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="app-pfq-eureka" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ru.psyfabriq.AppEurekaServerApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method />
+  </configuration>
+</component>
