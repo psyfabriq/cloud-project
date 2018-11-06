@@ -7,12 +7,14 @@ spring:
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD:test}
       username: user
-  security:
-     user:
-      password: ${CONFIG_SERVICE_PASSWORD:test}
   output:
     ansi:
       enabled: always
 logging:
   level:
-    root: ALL
+    org:
+      springframework:
+        security: DEBUG
+server:
+  servlet:
+    context-path: /uaa

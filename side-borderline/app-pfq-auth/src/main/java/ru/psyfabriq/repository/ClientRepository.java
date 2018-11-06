@@ -2,11 +2,12 @@ package ru.psyfabriq.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.psyfabriq.entity.Account;
+import ru.psyfabriq.entity.Client;
 
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
-    Optional<Account> findByUsername(String username);
+public interface ClientRepository extends JpaRepository<Client, Long> {
+    Optional<Client> findByClientId(String clientId);
 }
+
