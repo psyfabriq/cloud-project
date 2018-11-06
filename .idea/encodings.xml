@@ -2,14 +2,18 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-account" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-api" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-auth" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-config" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-enterprise" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-eureka" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-gateway" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-notification" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app-pfq-rss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/app-pfq-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/app-pfq-auth" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/app-pfq-auth" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/app-pfq-enterprise" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/app-pfq-notification" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/app-pfq-rss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/db-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-borderline/log-aspect" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-routing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-routing/app-pfq-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-routing/app-pfq-eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/side-routing/app-pfq-gateway" charset="UTF-8" />
   </component>
 </project>

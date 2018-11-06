@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/adm/header :: admhead}"></head>
+<body>
+
+<div class="wrapper">
+
+    <div th:replace="~{fragments/adm/navbar :: admsidebar}"></div>
+    <div class="main-panel">
+        <div th:replace="~{fragments/adm/navbar :: admnavbar}"></div>
+    </div>
+
+    <!-- /.main-panel -->
+    <div th:replace="~{fragments/adm/footer :: admfooter}"></div>
+
+</div>
+<!-- /.wrapper -->
+<div th:replace="~{fragments/adm/js :: admjs}"></div>
+</body>
+</html>

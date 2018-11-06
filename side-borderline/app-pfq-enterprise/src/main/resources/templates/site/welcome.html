@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: copy}"></div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h2>
+            <span th:text="'Message: ' + ${message}"></span>
+        </h2>
+    </div>
+</div>
+<!-- /.container -->
+<div th:replace="~{fragments/footer :: copy}"></div>
+<div th:replace="~{fragments/js :: site}"></div>
+
+</body>
+</html>

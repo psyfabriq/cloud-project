@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru-psyfabriq-routing</groupId>
+    <artifactId>side-routing</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <artifactId>pfq-cloud</artifactId>
+        <groupId>ru-psyfabriq</groupId>
+        <version>0.0.1</version>
+    </parent>
+
+    <developers>
+        <developer>
+            <id>psyfabriq</id>
+            <name>Ilia Podstavkov</name>
+            <email>psyfabriqdev@gmail.com</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>app-pfq-config</module>
+        <module>app-pfq-eureka</module>
+        <module>app-pfq-gateway</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

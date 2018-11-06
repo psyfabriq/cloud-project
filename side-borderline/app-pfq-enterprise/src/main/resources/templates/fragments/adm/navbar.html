@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="sidebar" data-background-color="white"
+     data-active-color="danger" th:fragment="admsidebar">
+
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a href="#" class="simple-text" th:text="#{header.site.name}"></a>
+        </div>
+
+        <ul class="nav">
+            <th:block th:each="itemmenu : ${admsidebar}">
+                <li th:classappend="${itemmenu.active} ? active : ''"><a th:href="${itemmenu.uri}"> <i
+                        th:classappend="${itemmenu.css}"></i>
+                    <p th:text="${itemmenu.text}"></p>
+                </a></li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-default" th:fragment="admnavbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar bar1"></span> <span class="icon-bar bar2"></span>
+                <span class="icon-bar bar3"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:text="${page_title}"></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/{uri}/profile(uri=${duri})}"> <i
+                        class="ti-star"></i>
+                    <p th:text="#{adm.link.profile}"></p>
+                </a></li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                        data-toggle="dropdown"> <i class="ti-flag-alt-2"></i>
+                    <p th:text="#{lang.change}"></p> <b class="caret"></b>
+                </a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/international(lang=en)}"
+                               th:text="#{lang.en}"></a></li>
+                        <li><a th:href="@{/international(lang=ru)}"
+                               th:text="#{lang.ru}"></a></li>
+                    </ul>
+                </li>
+                <li><a th:href="@{/logout}"> <i class="ti-ruler"></i>
+                    <p th:text="#{header.link.logout}"></p>
+                </a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+</body>
+</html>
