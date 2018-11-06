@@ -21,7 +21,7 @@ eureka:
       
 datasource:
   driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://${DATABASE_URI:localhost}:${DATABASE_PORT:3306}/${DATABASE_SHEMA:appdb}?useSSL=false&useUnicode=true
+  url: jdbc:mysql://${DATABASE_URI:127.0.0.1}:${DATABASE_PORT:3301}/${DATABASE_SHEMA:appdb}?useSSL=false&useUnicode=true
   schema: ${DATABASE_SHEMA:appdb}
   username: ${DATABASE_USER:appuser}
   password: ${DATABASE_PASS:apppassword}

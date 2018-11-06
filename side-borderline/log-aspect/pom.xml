@@ -5,32 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>pfq-cloud</artifactId>
-        <groupId>ru-psyfabriq</groupId>
+        <artifactId>side-borderline</artifactId>
+        <groupId>ru-psyfabriq-borderline</groupId>
         <version>0.0.1</version>
     </parent>
 
     <groupId>ru-psyfabriq-library</groupId>
-    <artifactId>db-config</artifactId>
+    <artifactId>log-aspect</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <!-- fix hibernate jpa to java 11 -->
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.23.1-GA</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.46</version>
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -44,5 +30,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

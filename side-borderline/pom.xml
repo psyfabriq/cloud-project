@@ -26,10 +26,10 @@
     <modules>
         <module>app-pfq-api</module>
         <module>app-pfq-rss</module>
-        <module>app-pfq-notification</module>
-        <module>app-pfq-auth</module>
         <module>app-pfq-enterprise</module>
+        <module>app-pfq-auth</module>
         <module>db-config</module>
+        <module>log-aspect</module>
     </modules>
 
     <dependencies>
@@ -41,11 +41,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
+
 
         <!-- Test -->
         <dependency>
@@ -53,17 +55,13 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-            <version>1.4.194</version>
-        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.46</version>
         </dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -79,6 +77,26 @@
             <artifactId>db-config</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>ru-psyfabriq-library</groupId>
+            <artifactId>log-aspect</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

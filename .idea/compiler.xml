@@ -13,13 +13,14 @@
         <module name="app-pfq-enterprise" />
         <module name="app-pfq-eureka" />
         <module name="app-pfq-gateway" />
-        <module name="app-pfq-notification" />
         <module name="app-pfq-rss" />
         <module name="db-config" />
+        <module name="log-aspect" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="app-pfq-account" target="1.8" />
+      <module name="app-pfq-notification" target="1.8" />
       <module name="pfq-cloud" target="1.8" />
     </bytecodeTargetLevel>
   </component>
