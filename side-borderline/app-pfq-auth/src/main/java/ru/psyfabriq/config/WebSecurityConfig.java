@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SpringSocialConfigurer;
+import ru.psyfabriq.entity.Role;
 import ru.psyfabriq.service.CustomUserDetailsService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,10 +39,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-                .and().authorizeRequests().antMatchers("/**").authenticated().and().httpBasic();
+        http.csrf().disable();
+        http.authorizeRequests().antMatchers("/", "/signup", "/login", "/logout", "/actuator/health", "/actuator/info").permitAll();
+        http.authorizeRequests().antMatchers("/userInfo").access("hasRole('" + Role.ROLE_USER + "')");
+        http.authorizeRequests().antMatchers("/admin").access("hasRole('" + Role.ROLE_ADMIN + "')");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        http.authorizeRequests().and().formLogin()
+                .loginProcessingUrl("/j_spring_security_check")
+                .loginPage("/login")
+                .defaultSuccessUrl("/userInfo")
+                .failureUrl("/login?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password");
+        http.authorizeRequests().and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+        http.apply(new SpringSocialConfigurer()).signupUrl("/signup");
     }
 
     @Override

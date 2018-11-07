@@ -15,7 +15,5 @@ logging:
     org:
       springframework:
         security: DEBUG
-server:
-  servlet:
-    context-path: /uaa
+
 check-user-scopes: true
