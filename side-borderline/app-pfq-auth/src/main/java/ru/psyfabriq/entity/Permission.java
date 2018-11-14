@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import ru.psyfabriq.utils.annotation.Around;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +12,9 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-class Permission extends BaseIdEntity {
+public class Permission extends BaseIdEntity {
     @Column(columnDefinition = "VARCHAR(60)", nullable = false)
     private String name;
 }

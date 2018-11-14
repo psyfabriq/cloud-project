@@ -1,9 +1,6 @@
 package ru.psyfabriq.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,19 +13,26 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Account extends BaseIdEntity implements UserDetails {
+public class Account extends BaseIdEntity<String> implements UserDetails {
 
-    @Column(columnDefinition = "VARCHAR(25)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(25)", nullable = false, unique = true)
     private String username;
 
     @Column(columnDefinition = "VARCHAR(100)", nullable = false)
     private String password;
 
-    @Column(columnDefinition = "VARCHAR(40)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(40)", nullable = false, unique = true)
     private String email;
+
+    @Column(columnDefinition = "VARCHAR(40)")
+    private String firstName;
+
+    @Column(columnDefinition = "VARCHAR(40)")
+    private String lastName;
 
     @Column(columnDefinition = "INT(1)")
     private boolean enabled;

@@ -3,9 +3,11 @@ package ru.psyfabriq;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+/*
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
+*/
 
 @Getter
 @Setter
@@ -23,6 +25,7 @@ public class AppAccountForm {
     private String signInProvider;
     private String providerUserId;
 
+    /*
     public AppAccountForm(Connection<?> connection) {
         UserProfile socialUserProfile = connection.fetchUserProfile();
         this.userId = null;
@@ -36,4 +39,5 @@ public class AppAccountForm {
         this.providerUserId = key.getProviderUserId();
     }
 
+*/
 }

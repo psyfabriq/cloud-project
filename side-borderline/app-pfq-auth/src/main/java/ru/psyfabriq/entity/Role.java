@@ -1,8 +1,6 @@
 package ru.psyfabriq.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Role extends BaseIdEntity {
 
@@ -25,4 +22,13 @@ public class Role extends BaseIdEntity {
             @JoinColumn(name = "role_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "permission_id", referencedColumnName = "id")})
     private List<Permission> permissions;
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role(String name, List<Permission> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
 }

@@ -1,4 +1,5 @@
 package ru.psyfabriq.config;
+/*
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,8 @@ import ru.psyfabriq.repository.AccountRepository;
 
 import javax.sql.DataSource;
 
-@Configuration
-@EnableSocial
+//@Configuration
+//@EnableSocial
 public class SocialConfig implements SocialConfigurer {
 
     private final DataSource dataSource;
@@ -68,3 +69,4 @@ public class SocialConfig implements SocialConfigurer {
     }
 
 }
+*/
