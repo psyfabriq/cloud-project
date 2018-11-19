@@ -10,9 +10,4 @@ spring:
   output:
     ansi:
       enabled: always
-logging:
-  level:
-    root: ALL
-    com:
-      baeldung: TRACE
 check-user-scopes: true

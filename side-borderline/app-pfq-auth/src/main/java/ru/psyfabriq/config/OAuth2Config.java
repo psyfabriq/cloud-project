@@ -20,11 +20,10 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import ru.psyfabriq.service.impl.CustomClientDetailsService;
 import ru.psyfabriq.service.impl.CustomOauth2RequestFactory;
 import ru.psyfabriq.service.impl.CustomTokenEnhancer;
 import ru.psyfabriq.service.impl.CustomUserDetailsService;
-
-import javax.sql.DataSource;
 
 
 @Configuration
@@ -33,19 +32,17 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
-    private final ClientDetailsService clientDetailsService;
-    private final DataSource dataSource;
-    private final PasswordEncoder passwordEncoder;
-    @Value("${check-user-scopes}")
-    private Boolean checkUserScopes;
+    private final CustomClientDetailsService clientDetailsService;
+    // private final PasswordEncoder passwordEncoder;
+    // @Value("${check-user-scopes}")
+    private boolean checkUserScopes = false;
 
     @Autowired
-    public OAuth2Config(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, ClientDetailsService clientDetailsService, DataSource dataSource, PasswordEncoder passwordEncoder) {
+    public OAuth2Config(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, CustomClientDetailsService clientDetailsService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.clientDetailsService = clientDetailsService;
-        this.dataSource = dataSource;
-        this.passwordEncoder = passwordEncoder;
+        // this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -70,7 +67,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        clients.withClientDetails(clientDetailsService);
     }
 
     @Bean
@@ -81,6 +78,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
         oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        //oauthServer.passwordEncoder(passwordEncoder);
     }
 
     @Override

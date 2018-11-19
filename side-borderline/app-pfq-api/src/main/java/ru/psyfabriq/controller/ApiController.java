@@ -1,16 +1,11 @@
-package ru.psyfabriq;
+package ru.psyfabriq.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class BookApplication {
-
-    @RequestMapping(value = "/")
-    public String available() {
-        return "Spring in Action";
-    }
+public class ApiController {
 
     @RequestMapping(value = "/checked-out")
     public String checkedOut() {

@@ -110,5 +110,8 @@
 	<modules>
 		<module>side-routing</module>
 		<module>side-borderline</module>
+        <module>side-test</module>
+        <module>1x</module>
+        <module>2x</module>
 	</modules>
 </project>

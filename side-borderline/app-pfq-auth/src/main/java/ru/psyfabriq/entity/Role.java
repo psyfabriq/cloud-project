@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@Table(name = "role")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Role extends BaseIdEntity {

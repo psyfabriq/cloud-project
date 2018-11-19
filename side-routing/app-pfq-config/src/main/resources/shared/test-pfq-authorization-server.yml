@@ -1,0 +1,27 @@
+info:
+  app:
+    name: Test Authorization ${NUMBER_REPLICA:1}
+  developer:
+    name: Ilia Podstavkov
+    email: psyfabriqdev@gmail.com
+
+spring:
+  application:
+    name: test-pfq-authorization-server
+
+server:
+  port: 5001
+  servlet:
+    context-path: /test-pfq-authorization-server
+  use-forward-headers: false
+
+eureka:
+  instance:
+      hostname: localhost
+      port: 8761
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+
+logging:
+  level.org.springframework.security: DEBUG

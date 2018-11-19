@@ -6,12 +6,25 @@ info:
     email: psyfabriqdev@gmail.com
 server:
   port: ${PORT:8091}
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw3IiR89wUvWZIBItwKAG
+          TNwxfnTo1K5FqwiFmp+TO+3N9qWa4R9Z3zET2tX7bV3GkaG2wCipq4tStftUpJXj
+          Wl0B3JtS59MUdFx0bItrh/nykkAZ1QNQoQjHCxo79s8YHh7IjYRoKlLO4214gME3
+          9k29vDRItFOfOvqYi3fWmqBHOoVA+6wyvav9vKk1rq5OKC3A12UNSd8EJuAC7sld
+          Fcxxh0ZGVmjc0EXO8EO24mnAqiAZW32ezz+Y++upp0aeZbu2R+NyTCNDik0Q6scg
+          p38GySHZmolfjTdQNiu0OXEpsI2IrC2Bq6/+DimRBmBSgBS7pyWjZII85YOtBFLh
+          4wIDAQAB
+          -----END PUBLIC KEY-----
 management:
   endpoints:
     web:
       exposure:
-        include: '*' 
-
+        include: '*'
 eureka:
   instance:
     prefer-ip-address: true

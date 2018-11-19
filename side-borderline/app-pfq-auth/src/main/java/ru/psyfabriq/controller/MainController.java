@@ -1,6 +1,8 @@
 package ru.psyfabriq.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +16,17 @@ import ru.psyfabriq.AppAccountForm;
 import ru.psyfabriq.entity.Account;
 import ru.psyfabriq.service.AccountService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Optional;
+
 //import org.springframework.social.connect.web.ProviderSignInUtils;
 
 @Controller
 public class MainController {
+
+    private final LoadBalancerClient loadBalancerClient;
 
     //private final ConnectionFactoryLocator connectionFactoryLocator;
     // private final UsersConnectionRepository connectionRepository;
@@ -32,35 +41,40 @@ public class MainController {
         }
     */
     @Autowired
-    public MainController(AccountService accountService) {
+    public MainController(LoadBalancerClient loadBalancerClient, AccountService accountService) {
+        this.loadBalancerClient = loadBalancerClient;
         this.accountService = accountService;
     }
 
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    public String login(Model model) {
-        return "loginPage";
+    @RequestMapping(value = {"/exit"}, method = RequestMethod.GET)
+    public void exit(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, null, null);
+        // String referUri = Optional.ofNullable(this.loadBalancerClient)
+        try {
+            response.sendRedirect(request.getHeader("referer"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @RequestMapping(value = {"/signin"}, method = RequestMethod.GET)
-    public String signInPage(Model model) {
-        return "redirect:/login";
-    }
-
-    /*
-        @RequestMapping(value = {"/signup"}, method = RequestMethod.GET)
-        public String signupPage(WebRequest request, Model model) {
-            ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
-            Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
-            AppAccountForm myForm = null;
+    @RequestMapping(value = {"/signup"}, method = RequestMethod.GET)
+    public String signupPage(WebRequest request, Model model) {
+        //   ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
+        //  Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+        AppAccountForm myForm = null;
+            /*
             if (connection != null) {
                 myForm = new AppAccountForm(connection);
             } else {
-                myForm = new AppAccountForm();
-            }
-            model.addAttribute("myForm", myForm);
-            return "signupPage";
-        }
-    */
+                */
+
+        myForm = new AppAccountForm();
+
+        //  }
+        model.addAttribute("myForm", myForm);
+        return "signupPage";
+    }
+
     @RequestMapping(value = {"/signup"}, method = RequestMethod.POST)
     public String signupSave(WebRequest request,
                              Model model,

@@ -6,6 +6,9 @@ info:
     email: psyfabriqdev@gmail.com
 server:
   port: 5000
+  servlet:
+    context-path: /app-pfq-auth
+  use-forward-headers: false
 eureka:
   instance:
     prefer-ip-address: true

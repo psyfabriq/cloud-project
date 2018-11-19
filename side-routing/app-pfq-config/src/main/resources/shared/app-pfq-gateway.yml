@@ -11,7 +11,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 20000
-
 ribbon: 
   ConnectTimeout: 20000
   ReadTimeout: 20000
@@ -19,29 +18,48 @@ ribbon:
   MaxAutoRetriesNextServer: 2
   eureka:
     enabled: true
-
 zuul:
-  ignoredServices: '*'
   host:
     connect-timeout-millis: 20000
     socket-timeout-millis: 20000
   routes:
-    uaa:
-      path: /uaa/**
+    app-pfq-api: /**
+    app-pfq-auth:
+      path: /app-pfq-auth/**
       serviceId: APP-PFQ-AUTH
       stripPrefix: false
-      sensitiveHeaders:
-    api:
-      path: /api/**
-      serviceId: APP-PFQ-API
-      stripPrefix: true
-      sensitiveHeaders:
+      sensitiveHeaders: Authorization
+  add-host-header: true
+security:
+  basic:
+    enabled: false
+  oauth2:
+    sso:
+      loginPath: /login
+    client:
+      accessTokenUri: http://localhost:5000/app-pfq-auth/oauth/token
+      userAuthorizationUri: /app-pfq-auth/oauth/authorize
+      clientId: USER_CLIENT_APP
+      clientSecret: password
+    resource:
+          jwt:
+            key-value: |
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw3IiR89wUvWZIBItwKAG
+              TNwxfnTo1K5FqwiFmp+TO+3N9qWa4R9Z3zET2tX7bV3GkaG2wCipq4tStftUpJXj
+              Wl0B3JtS59MUdFx0bItrh/nykkAZ1QNQoQjHCxo79s8YHh7IjYRoKlLO4214gME3
+              9k29vDRItFOfOvqYi3fWmqBHOoVA+6wyvav9vKk1rq5OKC3A12UNSd8EJuAC7sld
+              Fcxxh0ZGVmjc0EXO8EO24mnAqiAZW32ezz+Y++upp0aeZbu2R+NyTCNDik0Q6scg
+              p38GySHZmolfjTdQNiu0OXEpsI2IrC2Bq6/+DimRBmBSgBS7pyWjZII85YOtBFLh
+              4wIDAQAB
+              -----END PUBLIC KEY-----
 eureka:
   instance:
     prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: ${DEFAULT_ZONE:http://localhost:8761/eureka/}
-
 server:
   port: 8080
+logging:
+  level.org.springframework.security: DEBUG

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "account")
 @Data
 @Builder
 @NoArgsConstructor

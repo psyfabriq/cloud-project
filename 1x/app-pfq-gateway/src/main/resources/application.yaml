@@ -1,0 +1,64 @@
+---
+info:
+  app:
+    name: App Gateway ${NUMBER_REPLICA:1}
+  developer:
+    name: Ilia Podstavkov
+    email: psyfabriqdev@gmail.com
+myProperties:
+  appName: app-pfq-gateway
+  authHostName: localhost
+  authPort: 5000
+  authContextPath: app-pfq-auth
+  authAppName: app-pfq-auth
+spring:
+  aop:
+    proxyTargetClass: true
+  application:
+    name: ${myProperties.appName}
+server:
+  port: 8080
+eureka:
+  instance:
+      hostname: localhost
+      port: 8761
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+zuul:
+  routes:
+    app-pfq-api: /**
+    auth:
+      sensitiveHeaders: Authorization
+      path: /${myProperties.authContextPath}/**
+      serviceId: ${myProperties.authAppName}
+      stripPrefix: false
+  add-proxy-headers: true
+security:
+  basic:
+    enabled: false
+  oauth2:
+    sso:
+      loginPath: /login
+    client:
+      accessTokenUri: http://${myProperties.authHostName}:${myProperties.authPort}/${myProperties.authContextPath}/oauth/token
+      userAuthorizationUri: /${myProperties.authContextPath}/oauth/authorize
+      clientId: USER_CLIENT_APP
+      clientSecret: password
+    resource:
+      jwt:
+        keyValue: |
+         -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw3IiR89wUvWZIBItwKAG
+          TNwxfnTo1K5FqwiFmp+TO+3N9qWa4R9Z3zET2tX7bV3GkaG2wCipq4tStftUpJXj
+          Wl0B3JtS59MUdFx0bItrh/nykkAZ1QNQoQjHCxo79s8YHh7IjYRoKlLO4214gME3
+          9k29vDRItFOfOvqYi3fWmqBHOoVA+6wyvav9vKk1rq5OKC3A12UNSd8EJuAC7sld
+          Fcxxh0ZGVmjc0EXO8EO24mnAqiAZW32ezz+Y++upp0aeZbu2R+NyTCNDik0Q6scg
+          p38GySHZmolfjTdQNiu0OXEpsI2IrC2Bq6/+DimRBmBSgBS7pyWjZII85YOtBFLh
+          4wIDAQAB
+          -----END PUBLIC KEY-----
+      serviceId: ${PREFIX:}resource
+logging:
+  level.org.springframework.security: DEBUG
+
+...

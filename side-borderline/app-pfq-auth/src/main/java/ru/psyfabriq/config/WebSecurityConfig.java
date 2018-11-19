@@ -8,10 +8,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.social.security.SpringSocialConfigurer;
-import ru.psyfabriq.entity.Role;
 import ru.psyfabriq.service.impl.CustomUserDetailsService;
 
 @Configuration
@@ -34,23 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
     @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-
-        http.authorizeRequests().antMatchers("/signup", "/login", "/logout", "/actuator/health", "/actuator/info", "/res/**").permitAll();
-        http.authorizeRequests().antMatchers("/").access("hasRole('" + Role.ROLE_USER + "')");
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('" + Role.ROLE_ADMIN + "')");
-        http.authorizeRequests().and().formLogin()
-                .loginProcessingUrl("/j_spring_security_check")
-                .loginPage("/login")
-                .defaultSuccessUrl("/user")
-                .failureUrl("/login?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password");
-        http.authorizeRequests().and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
-        //  http.apply(new SpringSocialConfigurer()).signupUrl("/signup");
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/oauth/**", "/signup", "/login", "/actuator/health", "/actuator/info", "/res/**").permitAll();
+        http
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage("/login").permitAll();
+        //http.authorizeRequests().and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override

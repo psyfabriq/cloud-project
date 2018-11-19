@@ -8,8 +8,10 @@ import ru.psyfabriq.utils.annotation.Around;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "permission")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
