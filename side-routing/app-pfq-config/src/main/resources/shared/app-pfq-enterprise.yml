@@ -1,3 +1,4 @@
+---
 info:
   app:
     name: Spring Enterprise Application (Happy News)
@@ -24,3 +25,4 @@ hibernate:
   show_sql: 'false'
 server:
   port: '8282'
+...

@@ -1,3 +1,4 @@
+---
 info:
   app:
     name: App Security ${NUMBER_REPLICA:1}
@@ -6,8 +7,10 @@ info:
     email: psyfabriqdev@gmail.com
 server:
   port: 5000
+  session:
+      tracking-modes: cookie
   servlet:
-    context-path: /app-pfq-auth
+    context-path: /uaa
   use-forward-headers: false
 eureka:
   instance:
@@ -29,3 +32,4 @@ hibernate:
     fetch_size: '50'
   max_fetch_depth: '3'
   show_sql: 'false'
+...

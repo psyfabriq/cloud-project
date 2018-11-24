@@ -3,7 +3,6 @@ package ru.psyfabriq.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -13,13 +12,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
-
-import java.util.Optional;
 
 @Configuration
 @EnableOAuth2Sso
@@ -28,15 +24,17 @@ import java.util.Optional;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final ResourceServerTokenServices resourceServerTokenServices;
+    private final CustomizeLogoutSuccessHandler customizeLogoutSuccessHandler;
     //private final LoadBalancerClient loadBalancerClient;
 
     @Value("${myProperties.authContextPath}")
     private String authContextPath;
 
     @Autowired
-    public SecurityConfiguration(ResourceServerTokenServices resourceServerTokenServices) {
+    public SecurityConfiguration(ResourceServerTokenServices resourceServerTokenServices, CustomizeLogoutSuccessHandler customizeLogoutSuccessHandler) {
         this.resourceServerTokenServices = resourceServerTokenServices;
 
+        this.customizeLogoutSuccessHandler = customizeLogoutSuccessHandler;
     }
 
     @Bean
@@ -49,10 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception { // @formatter:off
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/" + authContextPath + "/**", "/login").permitAll()
+                .antMatchers("/" + authContextPath + "/**", "/login", "/**").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)
-                .logout().permitAll().logoutSuccessUrl("/");
+                .logout().logoutSuccessHandler(customizeLogoutSuccessHandler).permitAll(false);
+        http.exceptionHandling().accessDeniedPage("/error/router?q=access-denied");
     } // @formatter:on
 
 
@@ -73,4 +72,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return oAuth2AuthenticationManager;
     }
 }
-

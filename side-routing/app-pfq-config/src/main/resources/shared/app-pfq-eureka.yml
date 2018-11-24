@@ -1,3 +1,4 @@
+---
 info:
   app:
     name: App Eureka ${NUMBER_REPLICA:1}
@@ -14,4 +15,5 @@ management:
 eureka:
   instance:
     prefer-ip-address: true
-    hostname: ${HOST_NAME:localhost} 
+    hostname: ${HOST_NAME:localhost}
+...

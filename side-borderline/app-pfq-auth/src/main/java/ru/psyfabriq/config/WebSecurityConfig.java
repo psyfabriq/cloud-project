@@ -33,16 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/oauth/**", "/signup", "/login", "/actuator/health", "/actuator/info", "/res/**").permitAll();
-        http
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").permitAll();
-        //http.authorizeRequests().and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
-        http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests().antMatchers("/oauth/**", "/actuator/health", "/actuator/info", "/res/**").permitAll();
+        http.authorizeRequests().antMatchers("/signup", "/login").permitAll();
+        http.authorizeRequests().anyRequest().authenticated();
+        http.formLogin().loginPage("/login").permitAll();
     }
 
     @Override

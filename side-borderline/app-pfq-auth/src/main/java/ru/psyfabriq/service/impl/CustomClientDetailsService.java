@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.psyfabriq.entity.Client;
 import ru.psyfabriq.repository.ClientRepository;
+import ru.psyfabriq.utils.annotation.LogBefore;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class CustomClientDetailsService implements ClientDetailsService {
 
     @Override
     @Transactional
-    //@LogBefore
+    @LogBefore
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         Client client = clientRepository.findByClientId(clientId)
                 .orElseThrow(() -> new ClientRegistrationException(String.format("no client %s registered", clientId))
@@ -46,13 +47,18 @@ public class CustomClientDetailsService implements ClientDetailsService {
                 client.getAuthorities(),
                 client.getWebServerRedirectUri());
 
-        String greetingsClientRedirectUri = Optional.ofNullable(this.loadBalancerClient.choose(client.getWebServerRedirectUri()))
-                .map(serviceInstance -> String.format("http://%s:%s/login", serviceInstance.getHost(), serviceInstance.getPort()))
-                .orElseThrow(() -> new ClientRegistrationException("coudn`t find and bind greetings-client IP"));
-        details.setRegisteredRedirectUri(Collections.singleton(greetingsClientRedirectUri));
-        details.setAutoApproveScopes(Collections.singleton(client.getAutoapprove()));
+        if (client.getWebServerRedirectUri() != null) {
+            String greetingsClientRedirectUri = Optional.ofNullable(this.loadBalancerClient.choose(client.getWebServerRedirectUri()))
+                    .map(serviceInstance -> String.format("http://%s:%s/login", serviceInstance.getHost(), serviceInstance.getPort()))
+                    .orElseThrow(() -> new ClientRegistrationException("coudn`t find and bind greetings-client IP"));
 
+            details.setRegisteredRedirectUri(Collections.singleton(greetingsClientRedirectUri));
+        }
+
+        details.setAutoApproveScopes(Collections.singleton(client.getAutoapprove()));
         details.setClientSecret(client.getClientSecret());
+        details.setResourceIds(Collections.singleton(client.getResourceIds()));
+
         return details;
     }
 }

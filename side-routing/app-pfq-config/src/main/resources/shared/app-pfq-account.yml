@@ -1,3 +1,4 @@
+---
 info:
   app:
     name: App Security Account ${NUMBER_REPLICA:1}
@@ -34,3 +35,4 @@ security:
       accessTokenUri: http://app-gateway:8080/uaa/oauth/token
       grant-type: client_credentials
       scope: server
+...

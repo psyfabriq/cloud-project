@@ -47,14 +47,9 @@ public class MainController {
     }
 
     @RequestMapping(value = {"/exit"}, method = RequestMethod.GET)
-    public void exit(HttpServletRequest request, HttpServletResponse response) {
+    public String exit(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, null, null);
-        // String referUri = Optional.ofNullable(this.loadBalancerClient)
-        try {
-            response.sendRedirect(request.getHeader("referer"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return "redirect:/";
     }
 
     @RequestMapping(value = {"/signup"}, method = RequestMethod.GET)

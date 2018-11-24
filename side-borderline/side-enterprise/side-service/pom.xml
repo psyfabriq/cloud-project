@@ -3,17 +3,16 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>ru-psyfabriq-routing</groupId>
-    <artifactId>side-routing</artifactId>
-    <version>0.0.1</version>
-    <packaging>pom</packaging>
-
     <parent>
-        <artifactId>pfq-cloud</artifactId>
-        <groupId>ru-psyfabriq</groupId>
+        <artifactId>side-enterprise</artifactId>
+        <groupId>ru-psyfabriq-enterprise</groupId>
         <version>0.0.1</version>
     </parent>
+
+    <groupId>ru-psyfabriq-service</groupId>
+    <artifactId>side-service</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
 
     <developers>
         <developer>
@@ -24,9 +23,12 @@
     </developers>
 
     <modules>
-        <module>app-pfq-config</module>
-        <module>app-pfq-eureka</module>
+
     </modules>
+
+    <dependencies>
+
+    </dependencies>
 
     <build>
         <plugins>
@@ -36,4 +38,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
