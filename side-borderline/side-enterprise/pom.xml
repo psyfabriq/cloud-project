@@ -3,6 +3,9 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>app-pfq-site</module>
+    </modules>
     <parent>
         <artifactId>side-borderline</artifactId>
         <groupId>ru-psyfabriq-borderline</groupId>
@@ -22,11 +25,6 @@
         </developer>
     </developers>
 
-    <modules>
-        <module>app-pfq-admin</module>
-        <module>app-pfq-site</module>
-        <module>side-service</module>
-    </modules>
 
     <properties>
         <jjwt.version>0.9.0</jjwt.version>

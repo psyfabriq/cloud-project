@@ -47,10 +47,6 @@ eureka:
 zuul:
   routes:
     app-pfq-site: /**
-    admin:
-       path: /admin/**
-       serviceId: APP-PFQ-ADMIN
-       stripPrefix: true
     auth:
       sensitiveHeaders: Authorization
       path: /${myProperties.authContextPath}/**

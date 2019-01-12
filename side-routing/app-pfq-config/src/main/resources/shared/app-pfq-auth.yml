@@ -20,10 +20,10 @@ eureka:
       defaultZone: ${DEFAULT_ZONE:http://localhost:8761/eureka/}
 datasource:
   driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://${DATABASE_URI:127.0.0.1}:${DATABASE_PORT:3302}/${DATABASE_SHEMA:appuser}?useSSL=false&useUnicode=true
-  schema: ${DATABASE_SHEMA:appuser}
-  username: ${DATABASE_USER:appuser}
-  password: ${DATABASE_PASS:apppassword}
+  url: jdbc:mysql://${DATABASE_URI:127.0.0.1}:${DATABASE_PORT:3302}/${DATABASE_SHEMA:user_sheme}?useSSL=false&useUnicode=true
+  schema: ${DATABASE_SHEMA:user_sheme}
+  username: ${DATABASE_USER:dbuser}
+  password: ${DATABASE_PASS:userpass}
 hibernate:
   hb2ddl:
     auto: update
