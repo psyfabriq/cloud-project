@@ -57,7 +57,7 @@ public class CustomClientDetailsService implements ClientDetailsService {
 
         details.setAutoApproveScopes(Collections.singleton(client.getAutoapprove()));
         details.setClientSecret(client.getClientSecret());
-        details.setResourceIds(Collections.singleton(client.getResourceIds()));
+        //details.setResourceIds(Collections.singleton(client.getResourceIds()));
 
         return details;
     }
